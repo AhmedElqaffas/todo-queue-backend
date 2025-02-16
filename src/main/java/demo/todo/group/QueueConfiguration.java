@@ -30,4 +30,9 @@ public class QueueConfiguration {
     public Binding binding(Queue queue, TopicExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(routingKey);
     }
+
+    @Bean
+    public TodoQueueConsumer consumer(){
+        return new TodoQueueConsumer();
+    }
 }
