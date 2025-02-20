@@ -12,9 +12,12 @@ public class TodoController {
     @Autowired
     private TodoQueuePublisher queuePublisher;
 
+    @Autowired
+    private TodoService todoService;
+
     @GetMapping("/all")
     public List<TodoItem> getTodos(){
-        return List.of(new TodoItem("Hello"));
+        return todoService.getTodos();
     }
 
     @PostMapping("/new")
