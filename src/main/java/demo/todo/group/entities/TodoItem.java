@@ -1,4 +1,4 @@
-package demo.todo.group;
+package demo.todo.group.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

@@ -1,9 +1,10 @@
-package demo.todo.group;
+package demo.todo.group.queue;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -34,5 +35,14 @@ public class QueueConfiguration {
     @Bean
     public TodoQueueConsumer consumer(){
         return new TodoQueueConsumer();
+    }
+
+    /**
+     * To be able to serialize received queue messages to classes, rather than Strings or bytes[]
+     * @return
+     */
+    @Bean
+    public Jackson2JsonMessageConverter jsonMessageConverter() {
+        return new Jackson2JsonMessageConverter();
     }
 }

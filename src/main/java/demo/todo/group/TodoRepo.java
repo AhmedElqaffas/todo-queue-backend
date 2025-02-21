@@ -1,6 +1,7 @@
 package demo.todo.group;
 
 
+import demo.todo.group.entities.TodoItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
