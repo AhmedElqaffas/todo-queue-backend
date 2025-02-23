@@ -28,9 +28,11 @@ public class TodoFunctions {
             @HttpTrigger(name = "req", methods = {HttpMethod.GET}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<Void> request,
             ExecutionContext context) {
 
+        List<TodoItem> todos = todoService.getTodos();
+
         return request
                 .createResponseBuilder(HttpStatus.OK)
-                .body(List.of(new TodoItem("hello")))
+                .body(todos)
                 .header("Content-Type", "application/json")
                 .build();
     }
@@ -39,6 +41,8 @@ public class TodoFunctions {
     public HttpResponseMessage createTodo(
             @HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<TodoItem> request,
             ExecutionContext context) {
+
+        queuePublisher.sendCreateTodoEvent(request.getBody());
 
         return request
                 .createResponseBuilder(HttpStatus.OK)
@@ -52,6 +56,7 @@ public class TodoFunctions {
             @HttpTrigger(name = "req", methods = {HttpMethod.POST}, authLevel = AuthorizationLevel.ANONYMOUS) HttpRequestMessage<List<UUID>> request,
             ExecutionContext context) {
 
+        queuePublisher.sendRemoveTodosEvent(request.getBody());
         return request
                 .createResponseBuilder(HttpStatus.OK)
                 .header("Content-Type", "application/json")
