@@ -32,7 +32,6 @@ public class TodoController {
     @PostMapping("/remove")
     public void removeTodo(@RequestBody List<UUID> todoIDs){
         queuePublisher.sendRemoveTodosEvent(todoIDs);
-
     }
 
 }

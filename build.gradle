@@ -1,26 +1,85 @@
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.4.2'
-	id 'io.spring.dependency-management' version '1.1.7'
+	id 'io.spring.dependency-management' version '1.1.0'
+	id "com.microsoft.azure.azurefunctions" version "1.11.0"
+	id 'maven-publish'
+	id 'org.springframework.boot.experimental.thin-launcher' version '1.0.31.RELEASE'
 }
 
-group = 'demo'
+apply plugin: 'java'
+apply plugin: "com.microsoft.azure.azurefunctions"
+
+
+group = 'demo.todo.group'
 version = '0.0.1-SNAPSHOT'
 
+
+
+azurefunctions {
+	appName = 'todoqueue'
+	resourceGroup = 'todo-queue'
+	region = 'canadacentral'
+	appServicePlanName = 'ASP-todoqueue-bd49'
+	pricingTier = 'Y1'
+
+	runtime {
+		os = 'windows'
+		javaVersion = '17'
+	}
+
+	auth {
+		type = 'azure_cli'
+	}
+
+	appSettings {
+		FUNCTIONS_EXTENSION_VERSION = '~4'
+	}
+	// Uncomment to enable local debug
+	// localDebug = "transport=dt_socket,server=y,suspend=n,address=5005"
+}
+
+jar {
+	manifest {
+		attributes(
+				// The main class is compulsory. Set it to point your SpringBootApplication.
+				"Main-Class": "demo.todo.group.Application"
+		)
+	}
+}
+
+
 java {
+	sourceCompatibility = '17'
+	targetCompatibility = '17'
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(17)
 	}
 }
 
 repositories {
+	mavenLocal()
 	mavenCentral()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+}
+
+publishing {
+	publications {
+		maven(MavenPublication) {
+			from components.java
+		}
+	}
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-amqp'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.cloud:spring-cloud-function-adapter-azure:4.2.1'
+	// https://mvnrepository.com/artifact/org.springframework.boot.experimental/spring-boot-thin-layout
+	implementation 'org.springframework.boot.experimental:spring-boot-thin-layout:1.0.31.RELEASE'
+
 	runtimeOnly 'org.postgresql:postgresql'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
