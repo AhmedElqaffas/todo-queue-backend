@@ -16,11 +16,17 @@ public class TodoQueueConsumer {
 
     @RabbitHandler
     public void receive(CreateTodoEvent event) {
+        if(event.getTodo() == null){
+            return;
+        }
         todoService.storeTodoInDatabase(event.getTodo());
     }
 
     @RabbitHandler
     public void receive(RemoveTodosEvent event) {
+        if(event.getTodoIDs() == null){
+            return;
+        }
         todoService.removeTodos(event.getTodoIDs());
     }
 }
