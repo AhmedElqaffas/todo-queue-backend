@@ -1,0 +1,32 @@
+spring:
+    application:
+        name: todo.group
+    rabbitmq:
+        host: woodpecker-01.rmq.cloudamqp.com
+        port: 5672
+        virtual-host: ${QUEUE_VHOST}
+        username: ${QUEUE_USERNAME}
+        password: ${QUEUE_PASSWORD}
+    datasource:
+        url: ${DB_URL}
+        username: ${DB_USERNAME}
+        password: ${DB_PASSWORD}
+        driver-class-name: org.postgresql.Driver
+    jpa:
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+    security:
+        oauth2:
+            client:
+                registration:
+                    cognito:
+                        client-id: 4dn3s3cq4t4mdajbkfum02tk8k
+                        client-secret: fi7p9nmgdcoma782kd6v7q3mpl543n3pks0inommms1khqcfl9q
+                        scope:
+                            - email
+                            - openid
+                            - phone
+                        redirect-uri: https://calm-plant-00f9eaf0f.6.azurestaticapps.net/
+                provider:
+                    cognito:
+                        issuerUri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_szt9xSyov
+                        user-name-attribute: username
