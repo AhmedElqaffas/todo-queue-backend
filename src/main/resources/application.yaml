@@ -15,18 +15,8 @@ spring:
     jpa:
         database-platform: org.hibernate.dialect.PostgreSQLDialect
     security:
-        oauth2:
-            client:
-                registration:
-                    cognito:
-                        client-id: 4dn3s3cq4t4mdajbkfum02tk8k
-                        client-secret: fi7p9nmgdcoma782kd6v7q3mpl543n3pks0inommms1khqcfl9q
-                        scope:
-                            - email
-                            - openid
-                            - phone
-                        redirect-uri: https://calm-plant-00f9eaf0f.6.azurestaticapps.net/
-                provider:
-                    cognito:
-                        issuerUri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_szt9xSyov
-                        user-name-attribute: username
+        cognito:
+            token-url: ${COGNITO_TOKEN_URL}
+            redirect-url: ${AUTH_REDIRECT_URL}
+            client-id: ${COGNITO_CLIENT_ID}
+            client_secret: ${COGNITO_CLIENT_SECRET}
