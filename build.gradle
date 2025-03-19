@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.4.2'
+	id 'org.springframework.boot' version '3.3.0'
 	id 'io.spring.dependency-management' version '1.1.0'
 	id "com.microsoft.azure.azurefunctions" version "1.11.0"
 	id 'maven-publish'
@@ -76,7 +76,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-amqp'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.cloud:spring-cloud-function-adapter-azure:4.2.1'
+	implementation 'org.springframework.cloud:spring-cloud-function-adapter-azure-web:4.1.0'
 	// https://mvnrepository.com/artifact/org.springframework.boot.experimental/spring-boot-thin-layout
 	implementation 'org.springframework.boot.experimental:spring-boot-thin-layout:1.0.31.RELEASE'
 
