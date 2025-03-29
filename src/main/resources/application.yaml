@@ -14,6 +14,8 @@ spring:
         driver-class-name: org.postgresql.Driver
     jpa:
         database-platform: org.hibernate.dialect.PostgreSQLDialect
+        hibernate:
+            ddl-auto: update
     security:
         cognito:
             token-url: ${COGNITO_TOKEN_URL}
