@@ -35,9 +35,10 @@ public class TodoController {
     }
 
     @PostMapping("/remove")
-    public void removeTodo(@RequestBody List<UUID> todoIDs,
+    public ResponseEntity<String> removeTodo(@RequestBody List<UUID> todoIDs,
             @RequestHeader("Todo-User-Email") String userEmail){
         queuePublisher.sendRemoveTodosEvent(todoIDs, userEmail);
+        return ResponseEntity.ok("Todo scheduled for deletion");
     }
 
     @ExceptionHandler(MissingRequestHeaderException.class)
