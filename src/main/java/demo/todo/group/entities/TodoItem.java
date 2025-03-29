@@ -27,6 +27,10 @@ public class TodoItem {
         this.text = text;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
     public String getText() {
         return text;
     }
