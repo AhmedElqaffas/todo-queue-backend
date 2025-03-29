@@ -19,11 +19,11 @@ public class TodoQueuePublisher {
     @Autowired
     private Queue queue;
 
-    public void sendCreateTodoEvent(TodoItem todo) {
-        this.template.convertAndSend(queue.getName() , new CreateTodoEvent(todo));
+    public void sendCreateTodoEvent(TodoItem todo, String userEmail) {
+        this.template.convertAndSend(queue.getName() , new CreateTodoEvent(todo, userEmail));
     }
 
-    public void sendRemoveTodosEvent(List<UUID> todoIDs) {
-        this.template.convertAndSend(queue.getName() , new RemoveTodosEvent(todoIDs));
+    public void sendRemoveTodosEvent(List<UUID> todoIDs, String userEmail) {
+        this.template.convertAndSend(queue.getName() , new RemoveTodosEvent(todoIDs, userEmail));
     }
 }

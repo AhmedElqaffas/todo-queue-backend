@@ -24,20 +24,20 @@ public class TodoController {
     @GetMapping("/all")
     public ResponseEntity<List<TodoItem>> getTodos(@RequestHeader("Todo-User-Email") String userEmail
                                                     ){
-        return ResponseEntity.ok(todoService.getTodos());
+        return ResponseEntity.ok(todoService.getTodos(userEmail));
     }
 
     @PostMapping("/new")
     public TodoItem createTodos(@RequestBody TodoItem todo,
                                 @RequestHeader("Todo-User-Email") String userEmail){
-        queuePublisher.sendCreateTodoEvent(todo);
+        queuePublisher.sendCreateTodoEvent(todo, userEmail);
         return todo;
     }
 
     @PostMapping("/remove")
     public void removeTodo(@RequestBody List<UUID> todoIDs,
             @RequestHeader("Todo-User-Email") String userEmail){
-        queuePublisher.sendRemoveTodosEvent(todoIDs);
+        queuePublisher.sendRemoveTodosEvent(todoIDs, userEmail);
     }
 
     @ExceptionHandler(MissingRequestHeaderException.class)
