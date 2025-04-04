@@ -11,6 +11,13 @@ The following is a sequence diagram for the flow of a request from the frontend 
 Cognito redirects the user back with a code, a jwt has to be generated from that code.
 ![auth_sequence](https://github.com/user-attachments/assets/dbcd4baa-a681-4fd1-af99-a0f11d0f1351)
 
+## Create/Remove Todo items
+
+- Azure Functions receive the client requests and queue them in a RabbitMQ instance (hosted on [cloudamqp](cloudamqp.com).
+- Another Azure Functions then poll items from the queue and do database CRUD operations accordingly.
+- I know this is an overengineering, since I could have dropped the queue component, and let the backend do the CRUD operations directly after receiving the client requests; **but I wanted to try out using queues, just for learning.**
+- It also might have been better to use a dedicated server instead of serverless Azure Functions, but I chose it for learning as well.
+
 # Running Locally
 
 ## Prerequisites
